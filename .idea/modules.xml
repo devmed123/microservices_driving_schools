@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/auto-ecole-service/autoecoleservice.iml" filepath="$PROJECT_DIR$/auto-ecole-service/autoecoleservice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/cec.iml" filepath="$PROJECT_DIR$/.idea/cec.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eureka/eureka.iml" filepath="$PROJECT_DIR$/eureka/eureka.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gatway-service/gatway-service.iml" filepath="$PROJECT_DIR$/gatway-service/gatway-service.iml" />
+    </modules>
+  </component>
+</project>

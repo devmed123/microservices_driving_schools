@@ -1,0 +1,86 @@
+services:
+  mysql:
+    container_name: mysql
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "8081:3306"
+    restart: always
+    networks:
+      - emp-network
+  auto-ecole-service2:
+    container_name: auto-ecole-service2
+    build:
+      context: auto-ecole-service
+      dockerfile: Dockerfile
+    image: autoecole:latest
+    expose:
+      - 8084
+    environment:
+      DB: mysql
+      HOST: 3306
+    ports:
+      - 8084:8083
+    networks:
+      - emp-network
+  auto-ecole-service:
+    container_name: auto-ecole-service
+    build:
+      context: auto-ecole-service
+      dockerfile: Dockerfile
+    image: autoecole:latest
+    expose:
+      - 8083
+    environment:
+      DB: mysql
+      HOST: 3306
+    ports:
+      - 8083:8083
+    networks:
+      - emp-network
+  gateway:
+    container_name: gateway-service
+    build:
+      context: gatway-service
+      dockerfile: Dockerfile
+    image: gateway:latest
+    expose:
+      - 8085
+    ports:
+      - 8085:8085
+    networks:
+      - emp-network
+
+  eureka:
+   container_name: eureka
+   build:
+    context: eureka
+    dockerfile: Dockerfile
+   image: eureka:latest
+   expose:
+    - 8761
+   ports:
+    - 8761:8761
+   networks:
+    - emp-network
+  keycloak:
+    container_name: keycloack
+    image: quay.io/keycloak/keycloak:legacy
+    environment:
+      DB_VENDOR: MYSQL
+      DB_ADDR: mysql
+      DB_DATABASE: keycloack
+      DB_USER: root
+      DB_PASSWORD: root
+      KEYCLOAK_USER: admin2
+      KEYCLOAK_PASSWORD: admin2
+    ports:
+      - 8088:8080
+    depends_on:
+      - mysql
+    networks:
+      - emp-network
+networks:
+  emp-network:
+    driver: bridge
